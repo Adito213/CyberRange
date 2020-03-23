@@ -1,0 +1,60 @@
+{% extends 'hosts/navbar.html' %}
+
+{% block content %}
+
+<h3> Results</h3>
+
+        <form method="get" action="">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6 ">
+                          <label for="inputSource">Cateogory</label>
+                          <select id="inputSource" class="form-control" name = "category">
+                            <option selected>Choose...</option>
+                            {% for i in cat %}
+                              <option value="{{i}}">{{i}}</option>
+                              {%endfor%}
+                          </select>
+                        </div>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary" >Search</button>
+
+        </form>
+    <hr/>
+<div class="table-responsive" style="margin-bottom:50px">
+    <table class="table" style="width: 100%;">
+    {% for i in screen %}
+        <tr style="width: 100px">
+            <td style="width: 650px;height: 350px;padding: 15px; text-align: left;">
+                <h5>{{i.created_at}}</h5>
+            </td>
+            <td style="width: 700px;height: 350px;padding: 15px; text-align: left;">
+                <img name = "photo" class="myImages"  src="/{{i.img}}"  style="max-width:350px">
+
+            </td>
+            <td style="width: 200px;margin: 50px 0;;height: 350px;padding: 15px; text-align: left;" >
+                <h4>{{i.description}}</h4>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    {%for i in log%}
+        <tr>
+            <td style="width: 650px;height: 350px;padding: 15px; text-align: left;"><h5>{{i.created_at}}</h5></td>
+            <td style="width: 400px;height: 350px;padding: 15px; text-align: left;"><h5>{{i.plaintext}}</h5><td>
+            <td style="width: 200px;margin: 50px 0;height: 350px;padding: 15px; text-align: left;"><h5>{{i.description}}</h5></td>
+        </tr>
+            {% endfor %}
+    </table>
+</div>
+    <div style="margin-bottom:150px; margin-top: 25px">
+               <h3>View Invoices or download directly to PDF</h3>
+                <p>Turn HTML template with your result into PDF's </p>
+                <a class="btn btn-info" href="{% url 'pdf_view' %}" target="_blank">View Invoice</a>
+                <a class="btn btn-info"  href="{% url 'pdf_download' %}">Download Invoice</a>
+    </div>
+
+<br>
+{% endblock %}
